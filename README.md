@@ -26,14 +26,14 @@ Los mas comunmente usados son *Master* y *appName*
 
 ### BasicLifeCycle
 
-[1. Create RDD`s](#1-Create-RDD`s)
+**1. Create RDD`s**
   - Crea RDD`s de alguna fuente externa de datos ó collección en el 
   programa driver 
-[2. LazyTransformation](#2-Lazy-Transformation)
+**2. LazyTransformation**
   - Convierte los RDD´s base en nuevos RDD`s usando transformaciones
-[3. Cache RDD`s](#3-Cache-RDD´s)
+**3. Cache RDD`s**
   - Guarda algunos RDD´s para un futuro reuso
-[4. Perform Actions](#4-Perform-Actions)
+**4. Perform Actions**
   - Prepara algunas acciones para ejecutarn en computo en paralelo y producir resultados
 
 ## 2. RDD´s
@@ -181,8 +181,15 @@ Crea una tabla temporal para realizar consultas SQL en dicha tabla temporal
 ```java
 nycFlights_df.registerTempTable("NYC_Flights")
 
-sqlContext.sql("SELECT * from NYC_Flights").show()
-```
-Muestra la onformaciòn en una tabla
-display(df)
+sqlContext.sql("SELECT * FROM NYC_Flights").show()
 
+//Consultas anidadas
+sqlContext.sql("SELECT * FROM NYC_Flights WHERE air_time IN (SELECT MIN(air_time) FROM NYC_Flights)").show()
+
+
+//Muestra la informaciòn en una tabla
+display(nycFlights_df)
+```
+## Storage Level
+
+Clase que ayuda a decidir como los RDD´s deben ser almacenados 
